@@ -3,6 +3,9 @@ services:
   grafana:
     image: grafana/grafana
     container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=P@ssw0rd
     restart: always
     ports:
       - 3000:3000
@@ -14,6 +17,10 @@ services:
   influxdb:
     image: influxdb:latest
     container_name: influxdb
+    environment:
+      - INFLUXDB_DB=telegraf
+      - INFLUXDB_USER=telegraf
+      - INFLUXDB_USER_PASSWORD=P@ssw0rd
     restart: always
     ports:
       - 8083:8083
@@ -25,6 +32,7 @@ services:
 
 networks:
   monitoring:
+    external: true
 volumes:
   grafana-volume:
     external: true
